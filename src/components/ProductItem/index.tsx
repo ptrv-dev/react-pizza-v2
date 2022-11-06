@@ -54,7 +54,7 @@ const ProductItem: React.FC<IProductItem> = ({
         style={{ maxWidth: 220 }}
       />
       <h4 className="font-bold text-xl leading-none">{title}</h4>
-      <p className="opacity-50 mt-1 mb-4">{description}</p>
+      <p className="opacity-50 mt-1 mb-4 flex-1">{description}</p>
       <div className="bg-stone-100 rounded-md p-0.5 flex justify-between mb-2">
         {size.map((item, idx) => (
           <button

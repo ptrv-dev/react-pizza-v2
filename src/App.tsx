@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-import Footer from './components/Footer';
+// import Footer from './components/Footer';
 import Header from './components/Header';
 
 import { useAppDispatch, useAppSelector } from './redux/store';
@@ -18,7 +18,7 @@ const App: React.FC = () => {
   React.useEffect(() => {
     window.scroll(0, 0);
     dispatch(fetchProducts(16));
-  }, [sort]);
+  }, [sort, dispatch]);
 
   return (
     <>
@@ -27,7 +27,7 @@ const App: React.FC = () => {
         <Route path="/" element={<IndexPage />} />
         <Route path="/cart" element={<CartPage />} />
       </Routes>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };

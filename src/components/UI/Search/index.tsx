@@ -10,6 +10,7 @@ const Search: React.FC = () => {
 
   const dispatch = useAppDispatch();
 
+  // eslint-disable-next-line
   const updateQuery = React.useCallback(
     debounce((query: string) => {
       dispatch(setQuery(query));

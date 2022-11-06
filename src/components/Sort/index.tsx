@@ -27,12 +27,12 @@ const sortBy: ISortByItem[] = [
   {
     name: 'цене (сначала дешевые)',
     key: 'price',
-    order: 'desc',
+    order: 'asc',
   },
   {
     name: 'цене (сначала дорогие)',
     key: 'price',
-    order: 'asc',
+    order: 'desc',
   },
 ];
 
