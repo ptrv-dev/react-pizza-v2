@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from './redux/store';
 import { fetchProducts } from './redux/slices/productsSlice';
 
 import IndexPage from './pages/IndexPage';
+import CartPage from './pages/CartPage';
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -24,6 +25,7 @@ const App: React.FC = () => {
       <Header />
       <Routes>
         <Route path="/" element={<IndexPage />} />
+        <Route path="/cart" element={<CartPage />} />
       </Routes>
       <Footer />
     </>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Search from '../UI/Search';
 
 const Header: React.FC = () => {
@@ -19,6 +19,12 @@ const Header: React.FC = () => {
 
   const onClickMenuButton = () => setIsMenuOpen((prev) => !prev);
 
+  const { pathname } = useLocation();
+
+  React.useEffect(() => {
+    setIsMenuOpen(false);
+  }, [pathname]);
+
   return (
     <header className="py-6">
       <div className="container flex items-center justify-between">
@@ -34,7 +40,7 @@ const Header: React.FC = () => {
               </p>
             </div>
           </Link>
-          {currentWidth >= 1024 && <Search />}
+          {currentWidth >= 1024 && pathname === '/' && <Search />}
         </div>
         <div
           className={`fixed left-0 top-0 w-full h-full bg-stone-900 bg-opacity-75 z-10 transition-opacity ${
@@ -46,7 +52,7 @@ const Header: React.FC = () => {
             isMenuOpen ? 'right-0' : '-right-full'
           }`}
         >
-          {currentWidth < 1024 && <Search />}
+          {currentWidth < 1024 && pathname === '/' && <Search />}
           <Link
             to={'/cart'}
             className="bg-amber-500 mt-4 md:mt-0 flex items-center justify-center text-stone-50 gap-2 py-2 lg:py-1 px-4 rounded-xl"
