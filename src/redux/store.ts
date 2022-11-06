@@ -2,10 +2,12 @@ import { configureStore } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 
 import sortReducer from './slices/sortSlice';
+import productsReducer from './slices/productsSlice';
 
 export const store = configureStore({
   reducer: {
     sort: sortReducer,
+    products: productsReducer,
   },
 });
 

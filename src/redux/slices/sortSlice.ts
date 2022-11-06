@@ -1,11 +1,11 @@
-import { createSlice } from '@reduxjs/toolkit';
-import type { PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 // Define a type for the slice state
 interface SortState {
   query: string;
   category: number;
   sortBy: SortByItem;
+  currentPage: number;
 }
 
 // Define the initial state using that type
@@ -17,6 +17,7 @@ const initialState: SortState = {
     key: 'rating',
     order: 'desc',
   },
+  currentPage: 1,
 };
 
 export const counterSlice = createSlice({
@@ -32,6 +33,7 @@ export const counterSlice = createSlice({
         key: 'rating',
         order: 'desc',
       };
+      state.currentPage = 1;
     },
     setQuery: (state, action: PayloadAction<string>) => {
       state.query = action.payload;
@@ -42,9 +44,13 @@ export const counterSlice = createSlice({
     setCategory: (state, action: PayloadAction<number>) => {
       state.category = action.payload;
     },
+    setCurrentPage: (state, action: PayloadAction<number>) => {
+      state.currentPage = action.payload;
+    },
   },
 });
 
-export const { clear, setQuery, setSortBy, setCategory } = counterSlice.actions;
+export const { clear, setQuery, setSortBy, setCategory, setCurrentPage } =
+  counterSlice.actions;
 
 export default counterSlice.reducer;
