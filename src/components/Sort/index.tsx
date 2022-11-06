@@ -1,4 +1,5 @@
 import React from 'react';
+import { ISortByItem } from '../../@types/custom';
 import { setCategory, setSortBy } from '../../redux/slices/sortSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 
@@ -12,7 +13,7 @@ const categories = [
   'Закрытые',
 ];
 
-const sortBy: SortByItem[] = [
+const sortBy: ISortByItem[] = [
   {
     name: 'популярности',
     key: 'rating',

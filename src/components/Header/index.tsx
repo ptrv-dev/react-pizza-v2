@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { useAppSelector } from '../../redux/store';
 import Search from '../UI/Search';
 
 const Header: React.FC = () => {
@@ -24,6 +25,8 @@ const Header: React.FC = () => {
   React.useEffect(() => {
     setIsMenuOpen(false);
   }, [pathname]);
+
+  const { totalCount, totalPrice } = useAppSelector((state) => state.cart);
 
   return (
     <header className="py-6">
@@ -73,7 +76,8 @@ const Header: React.FC = () => {
               />
             </svg>
             <span className="inline-flex gap-2 items-center md:hidden lg:inline-flex">
-              220 ₴ <span className="w-0.5 h-3 bg-stone-50" /> 1
+              {totalPrice} ₴ <span className="w-0.5 h-3 bg-stone-50" />{' '}
+              {totalCount}
             </span>
           </Link>
           <Link

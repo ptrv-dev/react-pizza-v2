@@ -1,12 +1,12 @@
 declare module '*.scss';
 
-interface SortByItem {
+export interface ISortByItem {
   name: string;
   key: string;
   order: 'desc' | 'asc';
 }
 
-interface ProductItem {
+export interface IProductItem {
   _id: number;
   image: string;
   title: string;
@@ -17,4 +17,14 @@ interface ProductItem {
   rating: number;
   price: number;
   date: number;
+}
+
+export interface ICartItem {
+  _id: number;
+  image: string;
+  title: string;
+  size: string;
+  dough: string;
+  price: number;
+  count: number;
 }

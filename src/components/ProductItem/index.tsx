@@ -1,6 +1,9 @@
 import React from 'react';
+import { IProductItem } from '../../@types/custom';
+import { appendToCart, removeFromCart } from '../../redux/slices/cartSlice';
+import { useAppDispatch, useAppSelector } from '../../redux/store';
 
-const ProductItem: React.FC<ProductItem> = ({
+const ProductItem: React.FC<IProductItem> = ({
   _id,
   image,
   title,
@@ -12,6 +15,35 @@ const ProductItem: React.FC<ProductItem> = ({
 }) => {
   const [selectedSize, setSelectedSize] = React.useState<string>(size[0]);
   const [selectedDough, setSelectedDough] = React.useState<string>(dough[0]);
+
+  const dispatch = useAppDispatch();
+
+  const addToCart = () => {
+    dispatch(
+      appendToCart({
+        _id: _id,
+        image,
+        title,
+        size: selectedSize,
+        dough: selectedDough,
+        price,
+        count: 1,
+      })
+    );
+  };
+  const onClickRemoveFromCart = () => {
+    dispatch(removeFromCart({ _id, size: selectedSize, dough: selectedDough }));
+  };
+
+  const cartItems = useAppSelector((state) => state.cart.items);
+  const isInCart = Boolean(
+    cartItems.find(
+      (item) =>
+        item._id === _id &&
+        item.size === selectedSize &&
+        item.dough === selectedDough
+    )
+  );
 
   return (
     <div className="flex flex-col w-full max-w-xs">
@@ -51,24 +83,51 @@ const ProductItem: React.FC<ProductItem> = ({
       </div>
       <div className="flex items-center justify-between mt-4">
         <p className="font-bold text-xl">{price} ₴</p>
-        <button className="bg-amber-500 inline-flex py-2 px-5 items-center gap-2 text-stone-50 rounded-xl">
-          В корзину{' '}
-          <svg
-            width="19"
-            height="19"
-            viewBox="0 0 19 19"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
+        {isInCart ? (
+          <button
+            onClick={onClickRemoveFromCart}
+            className="bg-amber-500 inline-flex py-2 px-5 items-center gap-2 text-stone-50 rounded-xl"
           >
-            <path
-              d="M9.5 3.875V15.125M15.125 9.5H3.875"
-              stroke="#FAFAF9"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </button>
+            Добавлено{' '}
+            <svg
+              width="18"
+              height="19"
+              viewBox="0 0 18 19"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M3.375 10.0625L7.875 14.5625L14.625 4.4375"
+                stroke="#FAFAF9"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </button>
+        ) : (
+          <button
+            onClick={addToCart}
+            className="bg-amber-500 inline-flex py-2 px-5 items-center gap-2 text-stone-50 rounded-xl"
+          >
+            В корзину{' '}
+            <svg
+              width="19"
+              height="19"
+              viewBox="0 0 19 19"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M9.5 3.875V15.125M15.125 9.5H3.875"
+                stroke="#FAFAF9"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </button>
+        )}
       </div>
     </div>
   );

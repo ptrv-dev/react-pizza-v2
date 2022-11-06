@@ -1,5 +1,6 @@
 import { RootState } from './../store';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { IProductItem } from '../../@types/custom';
 
 export const fetchProducts = createAsyncThunk(
   'products/fetchProducts',
@@ -17,7 +18,7 @@ export const fetchProducts = createAsyncThunk(
 );
 
 interface ProductsSliceState {
-  products: ProductItem[];
+  products: IProductItem[];
   status: 'loading' | 'success' | 'error';
 }
 
@@ -30,7 +31,7 @@ export const productsSlice = createSlice({
   name: 'products',
   initialState,
   reducers: {
-    setProducts: (state, action: PayloadAction<ProductItem[]>) => {
+    setProducts: (state, action: PayloadAction<IProductItem[]>) => {
       state.products = action.payload;
     },
   },
