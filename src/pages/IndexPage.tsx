@@ -5,9 +5,11 @@ import { useAppSelector } from '../redux/store';
 import Sort from '../components/Sort';
 import Grid from '../components/Grid';
 import ProductItem from '../components/ProductItem';
+import ProductItemSkeleton from '../components/ProductItemSkeleton';
 
 const IndexPage: React.FC = () => {
   const { products, status } = useAppSelector((state) => state.products);
+  const query = useAppSelector((state) => state.sort.query);
 
   return (
     <div className="container">
@@ -16,16 +18,20 @@ const IndexPage: React.FC = () => {
         {status === 'loading'
           ? 'Загрузка...'
           : !(products.length < 1)
-          ? 'Все пиццы'
+          ? query
+            ? `Поиск по запросу: '${query}'`
+            : 'Все пиццы'
           : 'По вашим критериям ничего не найдено 😔'}
       </h1>
-      {products && (
-        <Grid>
-          {products.map((product) => (
-            <ProductItem key={product._id} {...product} />
-          ))}
-        </Grid>
-      )}
+      <Grid>
+        {status === 'success' && products.length > 0
+          ? products.map((product) => (
+              <ProductItem key={product._id} {...product} />
+            ))
+          : [...Array(16)].map((item, idx) => (
+              <ProductItemSkeleton key={idx} />
+            ))}
+      </Grid>
     </div>
   );
 };
