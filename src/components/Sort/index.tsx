@@ -44,13 +44,13 @@ const Sort: React.FC = () => {
   const [isSortByOpen, setIsSortByOpen] = React.useState<boolean>(false);
 
   return (
-    <div className="flex flex-col gap-2 md:flex-row md:gap-4 md:justify-between">
+    <div className="flex flex-col gap-2 md:flex-row md:gap-4 md:justify-between lg:mt-7">
       <div className="flex overflow-auto gap-2 rounded-xl">
         {categories.map((category, idx) => (
           <button
             key={idx}
             onClick={() => dispatch(setCategory(idx))}
-            className={`rounded-xl py-1 px-3 transition-colors ${
+            className={`rounded-xl py-1 px-3 transition-colors lg:py-2 lg:px-5 lg:text-lg ${
               currentCategory === idx
                 ? 'bg-stone-700 text-stone-50'
                 : 'bg-stone-200'
@@ -62,7 +62,7 @@ const Sort: React.FC = () => {
       </div>
       <button
         onClick={() => setIsSortByOpen((prev) => !prev)}
-        className="inline-flex relative items-center gap-2 self-center flex-shrink-0"
+        className="inline-flex relative items-center gap-2 self-center flex-shrink-0 lg:text-lg"
       >
         <svg
           width="17"
