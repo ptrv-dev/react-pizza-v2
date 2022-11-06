@@ -6,6 +6,7 @@ import Sort from '../components/Sort';
 import Grid from '../components/Grid';
 import ProductItem from '../components/ProductItem';
 import ProductItemSkeleton from '../components/ProductItemSkeleton';
+import Pagination from '../components/Pagination';
 
 const IndexPage: React.FC = () => {
   const { products, status } = useAppSelector((state) => state.products);
@@ -32,6 +33,7 @@ const IndexPage: React.FC = () => {
               <ProductItemSkeleton key={idx} />
             ))}
       </Grid>
+      <Pagination />
     </div>
   );
 };

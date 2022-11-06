@@ -15,6 +15,7 @@ const App: React.FC = () => {
   const sort = useAppSelector((state) => state.sort);
 
   React.useEffect(() => {
+    window.scroll(0, 0);
     dispatch(fetchProducts(16));
   }, [sort]);
 
