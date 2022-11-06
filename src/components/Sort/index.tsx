@@ -1,4 +1,6 @@
 import React from 'react';
+import { setCategory, setSortBy } from '../../redux/slices/sortSlice';
+import { useAppDispatch, useAppSelector } from '../../redux/store';
 
 const categories = [
   'Все',
@@ -10,7 +12,7 @@ const categories = [
   'Закрытые',
 ];
 
-const sortBy = [
+const sortBy: SortByItem[] = [
   {
     name: 'популярности',
     key: 'rating',
@@ -34,12 +36,11 @@ const sortBy = [
 ];
 
 const Sort: React.FC = () => {
-  const [selectedCategory, setSelectedCategory] = React.useState<number>(0);
-  const [currentSortBy, setCurrentSortBy] = React.useState({
-    name: 'популярности',
-    key: 'rating',
-    order: 'desc',
-  });
+  const currentCategory = useAppSelector((state) => state.sort.category);
+  const currentSortBy = useAppSelector((state) => state.sort.sortBy);
+
+  const dispatch = useAppDispatch();
+
   const [isSortByOpen, setIsSortByOpen] = React.useState<boolean>(false);
 
   return (
@@ -48,9 +49,9 @@ const Sort: React.FC = () => {
         {categories.map((category, idx) => (
           <button
             key={idx}
-            onClick={() => setSelectedCategory(idx)}
+            onClick={() => dispatch(setCategory(idx))}
             className={`rounded-xl py-1 px-3 transition-colors ${
-              selectedCategory === idx
+              currentCategory === idx
                 ? 'bg-stone-700 text-stone-50'
                 : 'bg-stone-200'
             }`}
@@ -86,7 +87,7 @@ const Sort: React.FC = () => {
               {sortBy.map((item, idx) => (
                 <li key={idx} className="flex justify-center">
                   <button
-                    onClick={() => setCurrentSortBy(sortBy[idx])}
+                    onClick={() => dispatch(setSortBy(sortBy[idx]))}
                     className="hover:text-amber-500 hover:underline"
                   >
                     {item.name}
